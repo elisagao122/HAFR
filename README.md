@@ -15,7 +15,7 @@ python HAFR.py --pretrain 1 --reg 0.1 --reg_image 0.01 --reg_h 1 --reg_w 1
 ```
 
 ## Dataset
-We provide processed dataset: Allrecipes in Data/ <br>
+We provide processed dataset: Allrecipes in https://www.kaggle.com/elisaxxygao/foodrecsysv1 <br>
 
 **data.train.rating** 
 * Train file.
