@@ -2,7 +2,7 @@
 This our official implementation for the paper: Hierarchical Attention Network for Visually-aware
 Food Recommendation
 
-If you use the codes, please cite our paper. Thanks!
+If you use the codes, please kindly cite our paper. Thanks!
 
 ## Environment
 Python 2.7 <br>
