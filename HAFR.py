@@ -15,7 +15,6 @@ from time import strftime
 from time import localtime
 from Dataset import Dataset
 import datetime
-from tensorflow.contrib.layers.python.layers import batch_norm as batch_norm
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 _user_input = None
@@ -56,20 +55,12 @@ def parse_args():
                         help='Regularization for mlp w.')
     parser.add_argument('--reg_h', type=float, default=1,
                         help='Regularization for mlp h.')
-    parser.add_argument('--reg_att_ingre', type=float, default=0.0,
-                        help='Regularization for mlp in ingredient-level-attention.')
-    parser.add_argument('--reg_v', type=float, default=0.0,
-                        help='Regularization for v in ingredient-level-attention.')
-    parser.add_argument('--reg_att_com', type=float, default=0.0,
-                        help='Regularization for v in component-level-attention.')
     parser.add_argument('--lr', type=float, default=0.05,
                         help='Learning rate.')
     parser.add_argument('--pretrain', type=int, default=1,
                         help='Use the pretraining weights or not')
     parser.add_argument('--ckpt', type=int, default=10,
                         help='Save the model per X epochs.')
-    parser.add_argument('--batch_norm', type=int, default=0,
-                    help='Whether to perform batch normaization (0 or 1)')
     parser.add_argument('--weight_size', type=int, default=64,
                         help='weight_size')
     parser.add_argument('--save_folder', nargs="?", default='save',
@@ -152,16 +143,12 @@ class HAFR:
         self.reg = args.reg
         self.dns = args.dns
         self.epochs = args.epochs
-        self.batch_norm = args.batch_norm
         self.batch_size = args.batch_size
         self.num_ingredients = num_ingredients
 	self.image_size = image_size
 	self.reg_image = args.reg_image
 	self.reg_w = args.reg_w
 	self.reg_h = args.reg_h
-	self.reg_att_ingre = args.reg_att_ingre
-	self.reg_att_com = args.reg_att_com
-	self.reg_v = args.reg_v
 	self.weight_size = args.weight_size
 
     def _create_placeholders(self):
@@ -291,9 +278,7 @@ class HAFR:
 	    self.opt_loss = self.loss + self.reg * (
                         tf.reduce_sum(tf.square(self.embed_pos_p)) + tf.reduce_sum(tf.square(self.embed_pos_q)) + tf.reduce_sum(tf.square(self.embed_pos_ingre)) + \
                         tf.reduce_sum(tf.square(self.embed_neg_q)) + tf.reduce_sum(tf.square(self.embed_neg_ingre))) + self.reg_image * (
-			tf.reduce_sum(tf.square(self.W_image))) + self.reg_w * (tf.reduce_sum(tf.square(self.W_concat))) + self.reg_h * (tf.reduce_sum(tf.square(self.h))) + \
-			self.reg_att_ingre * (tf.reduce_sum(tf.square(self.W_att_ingre))) + self.reg_v * (tf.reduce_sum(tf.square(self.v))) + \
-			self.reg_att_com * (tf.reduce_sum(tf.square(self.W_att_com)) + tf.reduce_sum(tf.square(self.v_c)))
+			tf.reduce_sum(tf.square(self.W_image))) + self.reg_w * (tf.reduce_sum(tf.square(self.W_concat))) + self.reg_h * (tf.reduce_sum(tf.square(self.h)))
 
     def _create_optimizer(self):
         with tf.name_scope("optimizer"):
