@@ -31,17 +31,11 @@ class Dataset(object):
 	self.validRatings, self.valid_users = self.load_valid_file_as_list(path + ".valid.rating")
         self.validNegatives = self.load_negative_file(path + ".valid.negative")
 	self.validTestRatings = self.load_valid_test_file_as_dict(path+".valid.rating", path+".test.rating")
-	self.num_ingredients = self.get_num_ingredients(path + "_id_ingre_file")	
+        self.num_ingredients = 33147
 	self.cold_list, self.cold_num, self.train_item_list = self.get_cold_start_item_num()
 	self.ingreNum = self.load_id_ingre_num(path+"_id_ingre_num_file")
 	
 
-    def get_num_ingredients(self, filename):
-        f = open(filename, "r")
-        num_ingre = 0
-        for line in f:
-                num_ingre += 1
-        return num_ingre
 
     def load_valid_test_file_as_dict(self, valid_file, test_file):
         validTestRatings = {}
