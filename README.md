@@ -19,11 +19,11 @@ We provide processed dataset: Allrecipes in [here](https://pan.baidu.com/s/1-CNk
 
 **data.train.rating** 
 * Train file.
-* Each line is a training instance: userID\t itemID\t rating\t timestamp
+* Each line is a training instance: userID\t itemID\t rating
 
 **data.test.rating**
 * Test file.
-* Each line is a testing instance: userID\t itemID\t rating\t timestamp 
+* Each line is a testing instance: userID\t itemID\t rating
 
 **data.test.negative**
 * Test file (negative instances).
@@ -32,7 +32,7 @@ We provide processed dataset: Allrecipes in [here](https://pan.baidu.com/s/1-CNk
 
 **data.valid.rating**
 * Valid file.
-* Each line is a validation instance: userID\t itemID\t rating\t timestamp 
+* Each line is a validation instance: userID\t itemID\t rating
 
 **data.valid.negative**
 * Valid file (negative instances).
